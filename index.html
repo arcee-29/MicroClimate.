@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#101a2b">
+  <title>MicroClimate | Environmental Monitoring</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<div class="app-shell">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark">M</div>
+      <div>
+        <strong>MicroClimate</strong>
+        <span>ENVIRONMENTAL SYSTEM</span>
+      </div>
+    </div>
+
+    <div class="site-chip">
+      <span class="pulse"></span>
+      CUENCA NATIONAL HIGH SCHOOL
+    </div>
+
+    <div class="nav-label">MONITORING</div>
+
+    <nav class="nav-menu">
+      <button class="nav-link active" data-page="dashboard">⌂ Overview</button>
+      <button class="nav-link" data-page="humidity">◌ Humidity</button>
+      <button class="nav-link" data-page="rainfall">☂ Rain Gauge</button>
+      <button class="nav-link" data-page="radiation">☼ Solar Radiation</button>
+      <button class="nav-link" data-page="heat">♨ Heat Index</button>
+    </nav>
+
+    <div class="nav-label">SYSTEM</div>
+
+    <nav class="nav-menu">
+      <button class="nav-link" data-page="records">▤ Sensor Records</button>
+      <button class="nav-link" data-page="settings">⚙ Settings & Connection</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="mini-status">
+        <span class="status-dot" id="sideStatusDot"></span>
+        <div>
+          <b id="sideStatus">Demo mode</b>
+          <small id="sideStatusText">Sample readings active</small>
+        </div>
+      </div>
+      <div class="sidebar-foot">CAPSTONE PROJECT · 2026</div>
+    </div>
+  </aside>
+
+  <main class="main-content">
+
+    <header class="topbar">
+      <button class="mobile-menu" id="mobileMenu">☰</button>
+
+      <div>
+        <div class="eyebrow">ENVIRONMENTAL INTELLIGENCE</div>
+        <h1 id="pageTitle">Overview</h1>
+      </div>
+
+      <div class="top-actions">
+        <div class="live-pill">
+          <span class="pulse"></span>
+          <span id="modeLabel">DEMO DATA</span>
+        </div>
+        <div class="date-display" id="currentDate"></div>
+      </div>
+    </header>
+
+    <!-- MAIN DASHBOARD -->
+    <section class="page active" id="page-dashboard">
+
+      <div class="welcome-row">
+        <div>
+          <div class="eyebrow">LOCALIZED WEATHER STATION</div>
+          <h2>Good day, monitoring team.</h2>
+          <p>Here is the latest environmental snapshot for your school site.</p>
+        </div>
+        <div class="location-tag">⌖ Cuenca, Batangas, Philippines</div>
+      </div>
+
+      <div class="alert-banner neutral" id="mainAlert">
+        <div class="alert-symbol">✓</div>
+        <div>
+          <b id="mainAlertTitle">Monitoring is active</b>
+          <span id="mainAlertText">No rainfall threshold has been reached.</span>
+        </div>
+        <span class="alert-time" id="alertUpdated">UPDATED NOW</span>
+      </div>
+
+      <div class="section-heading">
+        <div>
+          <h3>Current conditions</h3>
+          <p>Latest local sensor readings</p>
+        </div>
+        <span class="subtle-label">AUTO REFRESH · 5 SEC (DEMO)</span>
+      </div>
+
+      <div class="metric-grid">
+
+        <article class="metric-card">
+          <div class="metric-top">
+            <span>Temperature</span>
+            <span class="metric-icon orange">♨</span>
+          </div>
+          <div class="metric-value">
+            <strong id="dashTemp">31.8</strong>
+            <small>°C</small>
+          </div>
+          <div class="metric-foot">
+            Ambient temperature
+            <a href="#" data-go="heat">View details →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top">
+            <span>Relative Humidity</span>
+            <span class="metric-icon blue">◌</span>
+          </div>
+          <div class="metric-value">
+            <strong id="dashHumidity">76</strong>
+            <small>%</small>
+          </div>
+          <div class="metric-foot">
+            Moisture in the air
+            <a href="#" data-go="humidity">View details →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top">
+            <span>Heat Index</span>
+            <span class="metric-icon red">♨</span>
+          </div>
+          <div class="metric-value">
+            <strong id="dashHeat">39.2</strong>
+            <small>°C</small>
+          </div>
+          <div class="metric-foot">
+            <span id="dashHeatStatus" class="status-text warning-text">Extreme caution</span>
+            <a href="#" data-go="heat">View details →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top">
+            <span>Rainfall Intensity</span>
+            <span class="metric-icon cyan">☂</span>
+          </div>
+          <div class="metric-value">
+            <strong id="dashRain">4.2</strong>
+            <small>mm/hr</small>
+          </div>
+          <div class="metric-foot">
+            <span id="dashRainStatus" class="status-text good-text">Below warning level</span>
+            <a href="#" data-go="rainfall">View details →</a>
+          </div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top">
+            <span>Solar Irradiance</span>
+            <span class="metric-icon yellow">☼</span>
+          </div>
+          <div class="metric-value">
+            <strong id="dashSolar">612</strong>
+            <small>W/m²</small>
+          </div>
+          <div class="metric-foot">
+            Incoming solar energy
+            <a href="#" data-go="radiation">View details →</a>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="content-grid">
+
+        <article class="panel forecast-panel">
+          <div class="panel-heading">
+            <div>
+              <h3>7-day weather outlook</h3>
+              <p>External forecast for Cuenca, Batangas</p>
+            </div>
+            <span class="source-tag">OPEN-METEO FORECAST</span>
+          </div>
+
+          <div class="forecast-list" id="forecastList">
+            <div class="loading">Loading forecast...</div>
+          </div>
+
+          <div class="forecast-note">
+            Forecast values come from an external weather forecast service,
+            not from the local ESP32 sensors. Heat-index estimates are
+            calculated from forecast temperature and humidity.
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Sensor health</h3>
+              <p>Monitoring modules and connection</p>
+            </div>
+            <span class="live-dot"></span>
+          </div>
+
+          <div class="health-list">
+
+            <div class="health-row">
+              <span class="health-icon">♨</span>
+              <div>
+                <b>Temperature & humidity</b>
+                <small>SHT31 / compatible sensor</small>
+              </div>
+              <span class="health-state" id="healthTH">Demo</span>
+            </div>
+
+            <div class="health-row">
+              <span class="health-icon">☂</span>
+              <div>
+                <b>Rain gauge</b>
+                <small>Tipping bucket pulse input</small>
+              </div>
+              <span class="health-state" id="healthRain">Demo</span>
+            </div>
+
+            <div class="health-row">
+              <span class="health-icon">☼</span>
+              <div>
+                <b>Solar radiation</b>
+                <small>Pyranometer / irradiance sensor</small>
+              </div>
+              <span class="health-state" id="healthSolar">Demo</span>
+            </div>
+
+            <div class="health-row">
+              <span class="health-icon">⌁</span>
+              <div>
+                <b>ESP32 connection</b>
+                <small>Sensor data communication</small>
+              </div>
+              <span class="health-state" id="healthESP">Demo</span>
+            </div>
+
+          </div>
+
+          <div class="health-footer">
+            Connect your ESP32 endpoint in Settings to replace sample readings.
+          </div>
+        </article>
+
+      </div>
+
+      <div class="content-grid lower-grid">
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Environmental trends</h3>
+              <p>Recent sample readings</p>
+            </div>
+
+            <select id="dashChartSelect" class="small-select">
+              <option value="temperature">Temperature</option>
+              <option value="humidity">Humidity</option>
+              <option value="rain">Rainfall</option>
+              <option value="solar">Solar radiation</option>
+              <option value="heat">Heat index</option>
+            </select>
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="dashChart"></canvas>
+          </div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <div>
+              <h3>Recent alerts</h3>
+              <p>Locally generated threshold events</p>
+            </div>
+            <button class="text-button" data-go="records">View records →</button>
+          </div>
+
+          <div id="recentAlerts" class="recent-alerts"></div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- HUMIDITY PAGE -->
+    <section class="page" id="page-humidity">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">SENSOR MODULE 01</div>
+          <h2>Humidity monitoring</h2>
+          <p>Track relative humidity, moisture trends, and changes in the surrounding air.</p>
+        </div>
+        <span class="sensor-chip blue-chip">SHT31 · RELATIVE HUMIDITY</span>
+      </div>
+
+      <div class="detail-hero blue-hero">
+        <div>
+          <span class="hero-label">CURRENT RELATIVE HUMIDITY</span>
+          <div class="hero-number">
+            <strong id="humValue">76</strong>
+            <small>% RH</small>
+          </div>
+          <div class="hero-status" id="humStatus">Humid conditions</div>
+          <p>
+            Relative humidity indicates how much water vapor is present
+            in the air compared with the maximum amount the air can hold
+            at that temperature.
+          </p>
+        </div>
+
+        <div class="gauge" id="humidityGauge">
+          <div class="gauge-inner">
+            <strong id="humGaugeValue">76%</strong>
+            <small>RH LEVEL</small>
+          </div>
+        </div>
+      </div>
+
+      <div class="metric-grid three">
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Today's minimum</span><span class="metric-icon blue">↓</span></div>
+          <div class="metric-value"><strong id="humMin">68</strong><small>%</small></div>
+          <div class="metric-foot">Lowest recorded sample</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Today's maximum</span><span class="metric-icon blue">↑</span></div>
+          <div class="metric-value"><strong id="humMax">84</strong><small>%</small></div>
+          <div class="metric-foot">Highest recorded sample</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Daily average</span><span class="metric-icon blue">∿</span></div>
+          <div class="metric-value"><strong id="humAvg">76</strong><small>%</small></div>
+          <div class="metric-foot">Average of stored samples</div>
+        </article>
+
+      </div>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Humidity history</h3>
+            <p>Relative humidity over recent readings</p>
+          </div>
+          <span class="unit-tag">% RH</span>
+        </div>
+        <div class="chart-wrap tall"><canvas id="humidityChart"></canvas></div>
+      </article>
+
+      <div class="content-grid">
+
+        <article class="panel">
+          <h3>Humidity interpretation</h3>
+          <p class="panel-description">Descriptive monitoring bands, not official PAGASA warning levels.</p>
+
+          <div class="range-list">
+            <div><span class="range-dot low"></span><b>Below 30%</b><span>Dry air</span></div>
+            <div><span class="range-dot normal"></span><b>30–60%</b><span>Moderate range</span></div>
+            <div><span class="range-dot high"></span><b>Above 60%</b><span>High humidity</span></div>
+          </div>
+        </article>
+
+        <article class="panel">
+          <h3>Monitoring notes</h3>
+          <ul class="clean-list">
+            <li>Install the humidity sensor in a ventilated radiation shield.</li>
+            <li>Avoid direct sunlight, rain, and heat from the ESP32 enclosure.</li>
+            <li>Compare readings periodically with a calibrated reference hygrometer.</li>
+          </ul>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- RAIN GAUGE PAGE -->
+    <section class="page" id="page-rainfall">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">SENSOR MODULE 02</div>
+          <h2>Rain gauge monitoring</h2>
+          <p>Monitor rainfall accumulation and calculated rainfall intensity for local threshold alerts.</p>
+        </div>
+        <span class="sensor-chip cyan-chip">TIPPING BUCKET · RAINFALL</span>
+      </div>
+
+      <div class="alert-banner neutral" id="rainAlert">
+        <div class="alert-symbol">☂</div>
+        <div>
+          <b id="rainAlertTitle">Below rainfall warning threshold</b>
+          <span id="rainAlertText">Continue monitoring local rainfall conditions.</span>
+        </div>
+        <span class="alert-time" id="rainAlertLevel">NORMAL</span>
+      </div>
+
+      <div class="metric-grid three">
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Rainfall intensity</span><span class="metric-icon cyan">↗</span></div>
+          <div class="metric-value"><strong id="rainIntensity">4.2</strong><small>mm/hr</small></div>
+          <div class="metric-foot">Calculated rolling hourly rate</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Accumulation today</span><span class="metric-icon blue">☂</span></div>
+          <div class="metric-value"><strong id="rainAccum">12.6</strong><small>mm</small></div>
+          <div class="metric-foot">Total since local midnight</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Bucket tips</span><span class="metric-icon cyan">⌁</span></div>
+          <div class="metric-value"><strong id="rainTips">21</strong><small>tips</small></div>
+          <div class="metric-foot">Pulse count (sample only)</div>
+        </article>
+
+      </div>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Rainfall intensity timeline</h3>
+            <p>Local sensor measurement · mm/hr</p>
+          </div>
+          <span class="unit-tag">MM/HR</span>
+        </div>
+        <div class="chart-wrap tall"><canvas id="rainChart"></canvas></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Rainfall warning classification</h3>
+            <p>Threshold guide for prototype comparison</p>
+          </div>
+          <span class="source-tag">PAGASA-BASED REFERENCE</span>
+        </div>
+
+        <div class="warning-levels">
+          <div class="warning-level green-level">
+            <span class="warning-color"></span>
+            <div><b>Below Yellow</b><small>Below 7.5 mm/hr · Continue monitoring</small></div>
+            <strong>&lt; 7.5</strong>
+          </div>
+
+          <div class="warning-level yellow-level">
+            <span class="warning-color"></span>
+            <div><b>Yellow</b><small>7.5 to 15 mm/hr · Be aware</small></div>
+            <strong>7.5–15</strong>
+          </div>
+
+          <div class="warning-level orange-level">
+            <span class="warning-color"></span>
+            <div><b>Orange</b><small>15 to 30 mm/hr · Be prepared</small></div>
+            <strong>15–30</strong>
+          </div>
+
+          <div class="warning-level red-level">
+            <span class="warning-color"></span>
+            <div><b>Red</b><small>More than 30 mm/hr · Take action</small></div>
+            <strong>&gt; 30</strong>
+          </div>
+        </div>
+
+        <p class="disclaimer">
+          Important: These are simplified prototype thresholds for hourly
+          local sensor readings. Official PAGASA warnings consider broader
+          rainfall duration, forecasts, affected areas, and official assessment.
+          This website does not issue official PAGASA warnings or class suspension announcements.
+        </p>
+      </article>
+
+      <div class="content-grid">
+        <article class="panel">
+          <h3>Rain gauge information</h3>
+          <ul class="clean-list">
+            <li>Each bucket tip produces a pulse counted by the ESP32.</li>
+            <li>Rainfall in millimeters depends on the gauge's calibrated mm-per-tip value.</li>
+            <li>Rainfall intensity is calculated over a rolling 60-minute period.</li>
+            <li>Keep the collector level and clear of leaves or debris.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h3>Warning event log</h3>
+          <div id="rainLog" class="recent-alerts"></div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SOLAR RADIATION PAGE -->
+    <section class="page" id="page-radiation">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">SENSOR MODULE 03</div>
+          <h2>Solar radiation monitoring</h2>
+          <p>Observe incoming solar irradiance and daily changes in sunlight intensity.</p>
+        </div>
+        <span class="sensor-chip yellow-chip">PYRANOMETER · W/M²</span>
+      </div>
+
+      <div class="detail-hero yellow-hero">
+        <div>
+          <span class="hero-label">CURRENT SOLAR IRRADIANCE</span>
+          <div class="hero-number">
+            <strong id="solarValue">612</strong>
+            <small>W/m²</small>
+          </div>
+          <div class="hero-status">Incoming solar radiation</div>
+          <p>
+            Solar irradiance describes the power of sunlight received
+            per unit area at the sensor surface.
+          </p>
+        </div>
+        <div class="sun-graphic">☼<small>SOLAR</small></div>
+      </div>
+
+      <div class="metric-grid three">
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Today's peak</span><span class="metric-icon yellow">↑</span></div>
+          <div class="metric-value"><strong id="solarPeak">785</strong><small>W/m²</small></div>
+          <div class="metric-foot">Maximum sample today</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Daily average</span><span class="metric-icon yellow">∿</span></div>
+          <div class="metric-value"><strong id="solarAvg">420</strong><small>W/m²</small></div>
+          <div class="metric-foot">Average of stored samples</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Daily irradiation</span><span class="metric-icon yellow">▤</span></div>
+          <div class="metric-value"><strong id="solarDaily">3.8</strong><small>kWh/m²</small></div>
+          <div class="metric-foot">Estimate from integrated readings</div>
+        </article>
+
+      </div>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Solar irradiance trend</h3>
+            <p>Changes in incoming solar radiation</p>
+          </div>
+          <span class="unit-tag">W/M²</span>
+        </div>
+        <div class="chart-wrap tall"><canvas id="solarChart"></canvas></div>
+      </article>
+
+      <div class="content-grid">
+        <article class="panel">
+          <h3>Sensor installation</h3>
+          <ul class="clean-list">
+            <li>Use a calibrated pyranometer if the study claims measurement in W/m².</li>
+            <li>Mount the sensor horizontally with an unobstructed view of the sky.</li>
+            <li>Follow the sensor datasheet for analog, RS485, or other interface wiring.</li>
+            <li>Protect connectors from water while keeping the sensing surface exposed.</li>
+          </ul>
+        </article>
+
+        <article class="panel">
+          <h3>Reading guide</h3>
+          <p class="panel-description">
+            Solar radiation changes with cloud cover, time of day, shading,
+            and sensor orientation.
+          </p>
+          <div class="info-callout">
+            A BH1750 or VEML7700 measures illuminance in lux, not solar
+            irradiance directly. Do not label lux readings as W/m² without
+            a validated calibration method.
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- HEAT INDEX PAGE -->
+    <section class="page" id="page-heat">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">SENSOR MODULE 04</div>
+          <h2>Temperature & heat index</h2>
+          <p>View ambient temperature and calculated heat index using temperature and relative humidity.</p>
+        </div>
+        <span class="sensor-chip red-chip">SHT31 + HEAT INDEX CALCULATION</span>
+      </div>
+
+      <div class="detail-hero red-hero">
+        <div>
+          <span class="hero-label">CURRENT CALCULATED HEAT INDEX</span>
+          <div class="hero-number">
+            <strong id="heatValue">39.2</strong>
+            <small>°C</small>
+          </div>
+          <div class="hero-status" id="heatStatus">Extreme caution</div>
+          <p>
+            Heat index estimates how hot conditions feel when temperature
+            and humidity are considered together.
+          </p>
+        </div>
+
+        <div class="heat-thermo">
+          <div class="thermo-track">
+            <div class="thermo-fill" id="thermoFill"></div>
+          </div>
+          <span>HEAT LEVEL</span>
+        </div>
+      </div>
+
+      <div class="metric-grid three">
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Ambient temperature</span><span class="metric-icon orange">♨</span></div>
+          <div class="metric-value"><strong id="heatTemp">31.8</strong><small>°C</small></div>
+          <div class="metric-foot">Measured by temperature sensor</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Relative humidity</span><span class="metric-icon blue">◌</span></div>
+          <div class="metric-value"><strong id="heatHumidity">76</strong><small>%</small></div>
+          <div class="metric-foot">Used in heat index calculation</div>
+        </article>
+
+        <article class="metric-card">
+          <div class="metric-top"><span>Daily maximum</span><span class="metric-icon red">↑</span></div>
+          <div class="metric-value"><strong id="heatMax">41.0</strong><small>°C</small></div>
+          <div class="metric-foot">Maximum sample / estimate</div>
+        </article>
+
+      </div>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Heat index history</h3>
+            <p>Calculated heat index from local sensor readings</p>
+          </div>
+          <span class="unit-tag">°C</span>
+        </div>
+        <div class="chart-wrap tall"><canvas id="heatChart"></canvas></div>
+      </article>
+
+      <article class="panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Heat index risk guide</h3>
+            <p>Reference categories for heat-related monitoring</p>
+          </div>
+        </div>
+
+        <div class="warning-levels">
+          <div class="warning-level green-level">
+            <span class="warning-color"></span>
+            <div><b>Below 27°C</b><small>Lower heat-index range</small></div>
+          </div>
+
+          <div class="warning-level yellow-level">
+            <span class="warning-color"></span>
+            <div><b>27–32°C</b><small>Caution</small></div>
+          </div>
+
+          <div class="warning-level orange-level">
+            <span class="warning-color"></span>
+            <div><b>33–41°C</b><small>Extreme caution</small></div>
+          </div>
+
+          <div class="warning-level red-level">
+            <span class="warning-color"></span>
+            <div><b>42–51°C</b><small>Danger</small></div>
+          </div>
+
+          <div class="warning-level purple-level">
+            <span class="warning-color"></span>
+            <div><b>Above 51°C</b><small>Extreme danger</small></div>
+          </div>
+        </div>
+
+        <p class="disclaimer">
+          Heat-index categories are reference bands and should be checked
+          against current PAGASA heat-index guidance before final thesis deployment.
+          Heat index is calculated, not directly measured by a separate sensor.
+        </p>
+      </article>
+    </section>
+
+    <!-- SENSOR RECORDS -->
+    <section class="page" id="page-records">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">DATA MANAGEMENT</div>
+          <h2>Sensor records</h2>
+          <p>Review and export the latest readings currently available to the website.</p>
+        </div>
+        <button class="primary-button" id="exportCsv">↓ Export CSV</button>
+      </div>
+
+      <div class="panel table-panel">
+        <div class="panel-heading">
+          <div>
+            <h3>Latest sensor readings</h3>
+            <p id="recordCount">Sample data history</p>
+          </div>
+          <button class="text-button" id="clearRecords">Clear browser records</button>
+        </div>
+
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Timestamp</th>
+                <th>Temp.</th>
+                <th>Humidity</th>
+                <th>Heat index</th>
+                <th>Rainfall rate</th>
+                <th>Solar</th>
+                <th>Source</th>
+              </tr>
+            </thead>
+            <tbody id="recordsBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="info-callout">
+        Records in Demo Mode are simulated sample data saved in this browser.
+        For research-grade records, connect the ESP32 to a backend/database.
+      </div>
+    </section>
+
+    <!-- SETTINGS -->
+    <section class="page" id="page-settings">
+
+      <div class="page-intro">
+        <div>
+          <div class="eyebrow">SYSTEM CONFIGURATION</div>
+          <h2>Settings & connection</h2>
+          <p>Configure the data source and site information for your prototype.</p>
+        </div>
+        <span class="sensor-chip green-chip">SYSTEM SETUP</span>
+      </div>
+
+      <div class="content-grid settings-grid">
+
+        <article class="panel">
+          <h3>ESP32 data connection</h3>
+          <p class="panel-description">
+            The website can poll a backend endpoint that returns the latest ESP32 sensor readings as JSON.
+          </p>
+
+          <label class="form-label" for="endpoint">API endpoint URL</label>
+          <input id="endpoint" class="text-input" placeholder="http://192.168.1.100:3000/api/readings">
+
+          <div class="form-help">Example endpoint: http://your-server/api/readings</div>
+
+          <label class="toggle-row">
+            <span>
+              <b>Use live sensor endpoint</b>
+              <small>Turn off to use built-in demo readings.</small>
+            </span>
+            <input type="checkbox" id="liveToggle">
+          </label>
+
+          <button class="primary-button full" id="saveConnection">Save connection settings</button>
+          <div id="connectionMessage" class="form-message"></div>
+        </article>
+
+        <article class="panel">
+          <h3>Rainfall threshold settings</h3>
+          <p class="panel-description">Prototype threshold values for local hourly rainfall intensity.</p>
+
+          <label class="form-label" for="yellowThreshold">Yellow threshold (mm/hr)</label>
+          <input id="yellowThreshold" class="text-input" type="number" min="0.1" step="0.1" value="7.5">
+
+          <label class="form-label" for="orangeThreshold">Orange threshold (mm/hr)</label>
+          <input id="orangeThreshold" class="text-input" type="number" min="0.1" step="0.1" value="15">
+
+          <label class="form-label" for="redThreshold">Red threshold (mm/hr)</label>
+          <input id="redThreshold" class="text-input" type="number" min="0.1" step="0.1" value="30">
+
+          <button class="primary-button full" id="saveThresholds">Save thresholds</button>
+          <div id="thresholdMessage" class="form-message"></div>
+        </article>
+
+      </div>
+
+      <article class="panel">
+        <h3>Expected ESP32 JSON format</h3>
+        <p class="panel-description">Your backend should return these fields.</p>
+
+        <pre class="code-sample">{
+  "temperature": 31.8,
+  "humidity": 76,
+  "rainfallIntensity": 4.2,
+  "rainfallAccumulation": 12.6,
+  "rainfallTips": 21,
+  "solarRadiation": 612,
+  "timestamp": "2026-11-09T10:30:00+08:00"
+}</pre>
+
+        <div class="info-callout">
+          Heat index is calculated by the website from temperature and humidity.
+          Keep the ESP32 endpoint accessible on the same network or use a secure hosted backend.
+        </div>
+      </article>
+    </section>
+
+    <footer class="footer">
+      <span>MICROCLIMATE ENVIRONMENTAL MONITORING SYSTEM</span>
+      <span>For academic prototype and evaluation purposes</span>
+    </footer>
+
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
